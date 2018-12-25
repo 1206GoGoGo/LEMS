@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.dao.EquipmentDao">
+     
+      <select id="findAll" parameterType="hashmap" resultType="Equipment">
+      	SELECT * FROM equipment WHERE 1=1
+      	<if test='search != "0"'>
+      		and (category LIKE CONCAT(CONCAT('%',#{search}),'%') or name  LIKE CONCAT(CONCAT('%',#{search}),'%') or operator  LIKE CONCAT(CONCAT('%',#{search}),'%'))
+      	</if>
+      	<if test='status != "0"'>
+      		and status = #{status}
+      	</if>
+      	;
+     </select>
+     
+     <select id="add" parameterType="Equipment">
+		 INSERT INTO `equipment`  (category,name,type,size,price,date,manufacturer,expirationDate,operator,status) VALUES
+		(#{category},#{name}, #{type},#{size},#{price},now(),#{manufacturer},#{expirationdate}, #{operator}, #{status}); 
+     </select>
+     
+     <select id="modifyStatus" parameterType="hashmap" >
+     	UPDATE equipment SET `status` = #{status} WHERE id = #{id};
+     </select>
+     
+     <select id="findById" parameterType="string" resultType="Equipment" >
+     	select * from equipment where id = #{id};
+     </select>
+     
+</mapper>

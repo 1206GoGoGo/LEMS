@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.dao.RepairDao">
+     
+      <select id="find" parameterType="hashmap" resultType="Repair">
+      	SELECT * FROM repair WHERE 1=1
+      	<if test='search != "0"'>
+      		and (name  LIKE CONCAT(CONCAT('%',#{search}),'%') or responsible  LIKE CONCAT(CONCAT('%',#{search}),'%'))
+      	</if>
+      	<if test='status != "0"'>
+      		and status = #{status}
+      	</if>
+      	<if test='timeStart != "0"'>
+      		and date between #{timeStart} and #{timeEnd}
+      	</if>
+      		;
+     </select>
+     
+     <select id="add" parameterType="hashmap" >
+     	INSERT INTO `repair`  (date,responsible,status,equId,name) VALUES
+		(now(),#{responsible}, #{status} , #{equId},#{name}); 
+     
+     </select>
+     
+     <select id="findById" parameterType="string" resultType="Repair">
+     	SELECT * FROM repair WHERE equId = #{equId};
+     </select>
+     
+     <select id="modify" parameterType="hashmap">
+     	update repair set repairFactory = #{repairFactory},cost = #{cost},status = #{status} where id = #{id};
+     	
+     </select>
+     
+</mapper>

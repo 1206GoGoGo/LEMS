@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.dao.BuyDao">
+     <select id="find" parameterType="hashmap" resultType="Buy">
+        SELECT id,name,category,type,size,price,count,manufacturer,date(expirationDate) as expirationDate,operator,status FROM buy WHERE 1=1
+      	<if test='search != "0"'>
+      		and (category LIKE CONCAT(CONCAT('%',#{search}),'%') or name  LIKE CONCAT(CONCAT('%',#{search}),'%') or operator  LIKE CONCAT(CONCAT('%',#{search}),'%'))
+      	</if>
+      	<if test='status != "0"'>
+      		and status = #{status}
+      	</if>
+      	;
+    </select>
+    
+    <select id="add" parameterType="Buy">
+		INSERT INTO `buy` 
+		(name,category,type,size,price,count,manufacturer,expirationDate,operator,status) 
+		VALUES 
+		(#{name},#{category}, #{type},#{size},#{price}, #{count},#{manufacturer}, #{expirationdate}, #{operator}, #{status}); 
+	</select>
+	
+	<select id="modify" parameterType="hashmap">
+		UPDATE buy SET `status` = #{status} WHERE id = #{id};
+	</select>
+	
+	<select id="findById" parameterType="String" resultType="Buy">
+		select * from buy where id = #{id};
+	</select>
+</mapper>
