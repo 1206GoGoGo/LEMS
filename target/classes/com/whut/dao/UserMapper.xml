@@ -10,7 +10,7 @@
     </select>
     
     <select id="add" parameterType="user">
-    	INSERT INTO `user`  (username,password,level) VALUES
-		(#{username},#{password},#{level}); 
+    	INSERT INTO `user`  (username,password,level,nickname) VALUES
+		(#{username},#{password},#{level},#{nickname}); 
     </select>
 </mapper>

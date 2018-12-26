@@ -1,21 +1,13 @@
 package com.whut.pojo;
 
 public class User {
-    private Integer userid;
-
     private String username;
 
     private String password;
 
     private Integer level;
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+    
+    private String nickname;
 
     public String getUsername() {
         return username;
@@ -39,5 +31,13 @@ public class User {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+    
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 }

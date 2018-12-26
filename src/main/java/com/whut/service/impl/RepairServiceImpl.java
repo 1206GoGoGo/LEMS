@@ -39,7 +39,7 @@ public class RepairServiceImpl implements RepairService {
 		map.put("responsible", responsible);
 		Equipment equipment = equipmentDao.findById(id);
 		map.put("name",equipment.getName());  //设备名
-		map.put("status","待报修");
+		map.put("status","待修理");
 		repairDao.add(map);
 	}
 

@@ -24,8 +24,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean vertify(User user) {
+		
 		//存储的密码
 		User userTemp = userDao.findByUsername(user.getUsername());
+		
+		if(userTemp==null)
+			return false;
 		//比对密码和权限
 		if(((user.getPassword()).equals(userTemp.getPassword()))&& (user.getLevel().equals(userTemp.getLevel()))) 
 			return true;
@@ -39,10 +43,14 @@ public class UserServiceImpl implements UserService {
 		if(userTemp != null) { //存在该用户
 			return false;
 		}
-		
 		userDao.add(user);
 		return true;
 		
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userDao.findByUsername(username);
 	}
 
 }
